@@ -10,7 +10,10 @@
     "vue"
   ],
   "author": "neomessi",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neomessi/tommy-table"
+  },
   "dependencies": {
     "vue": "^2.0.0",    
     "vue-template-compiler": "^2.0.0"
