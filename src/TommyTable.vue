@@ -9,7 +9,7 @@
 			</select>
 			<br style="line-height: 28px" />
 			<form ref="searchFields">
-				<table class="table table-bordered table-condensed">
+				<table class="table table-bordered table-condensed table-responsive">
 					<thead>
 						<tr>
 							<th :key=i v-for="(k,i) in Object.keys($data.actualCands[0])" v-if="i > 0" nowrap>
@@ -51,7 +51,12 @@
 						<tr v-for="(m,i) in $data.searchCands" :key="i" v-if="i <= $data.shownNum">
 							<td :key=j v-for="(k,j) in Object.keys(m)" v-if="j > 0">
 								<span v-if="j === 1">
-									<a v-bind:href="`${$props.detaillink}${m[Object.keys($data.actualCands[0])[0]]}`" target="_blank">{{ formatValue(m[k], j) }}</a>
+									<span v-if="parseInt(m[Object.keys($data.actualCands[0])[0]]) > 0">
+										<a v-bind:href="`${$props.detaillink}${m[Object.keys($data.actualCands[0])[0]]}`" target="_blank">{{ formatValue(m[k], j) }}</a>
+									</span>
+									<span v-if="parseInt(m[Object.keys($data.actualCands[0])[0]]) <= 0">
+										{{ formatValue(m[k], j) }}
+									</span>
 								</span>
 								<span v-if="j > 1">
 									{{ formatValue(m[k], j, $props.choices[j] ? $props.choices[j].dataTypeFormat : null) }}
@@ -360,7 +365,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     tbody tr:nth-child(odd) {
         background-color: #FFF;
     }
