@@ -81,7 +81,7 @@
         props: {
         	batchsizes: { default: [25,50,100,200] },
 			bitindicators: { default: ['Y','N'] },
-			choices: { default: {} },
+			choices: { default: [] },
 			debugmode: { default: false },
 			defaultsearches: { default: [] },
 			defaultsorts: { default: [] },
