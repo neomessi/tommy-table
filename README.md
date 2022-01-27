@@ -2,6 +2,8 @@
 ### A full featured table component written in Vue that suports multi-column searching, sorting, and more
 ---
 
+![example](./example.png)
+
 ## Before you go any further...
 
 This component is used with preloaded JSON data. It doesn't do additional XHR requests to get more data.
@@ -19,7 +21,7 @@ which is used to build hyperlinks to view the details of each row, like this:
 ```
 <tommytable
     :tabledatavar="window.data"
-    :detaillink="/account/show/"
+    detaillink="/account/show/"
 ```
 That's all you need to get all the nice things like batching, multi-column search-as-you-type and sorting, etc.
 
@@ -100,12 +102,55 @@ Note for sorting it will do a numeric sort if the column value can be converted 
 This is used to build the hyperlink for the data in the first column.
 For instance, passing:
 ```
-:detaillink="/account/show/"
+detaillink="/account/show/"
 ```
 Will result in data in the first column to be hyperlinked with this (assuming 123 is the id for that row): 
 'account/show/123'
 
 Note if the id is 0 (or negative) it will not be hyperlinked.
+
+## Example
+
+```
+<tommytable
+    :batchsizes="[5,10,20]"
+    :bitindicators="['Yes','No']"
+    :choices="[,,{ options: [
+                    { label: '-select-', criteria: ()=>true },
+                    { label: '> $0', criteria: (n)=>n > 0 },
+                    { label: '> $100', criteria: (n)=>n > 100 },
+                    { label: '> $500', criteria: (n)=>n > 500 },
+                    { label: '> $1,000', criteria: (n)=>n > 1000 }
+                    ], dataTypeFormat: 'money'
+                    },
+                    { options: [
+                    { label: '-select-', criteria: ()=>true },
+                    { label: 'Home', criteria: (n)=>/home/i.test(n) },
+                    { label: 'Auto', criteria: (n)=>/auto/i.test(n) },
+                    { label: 'Personal', criteria: (n)=> /personal/i.test(n) }
+                    ]
+                    }]"
+    :datatypes="[,,'choice','choice','money','bit']"
+    :debugmode="1"
+    :defaultsearches="[,,{ choiceCriteraIndex: 2},,,0]"
+    :defaultsorts="[,,,'asc',,'desc']"
+    detaillink="/account/show/"
+/>
+```
+```
+<script>
+    // mocking up test data (this would come from server side data output)
+    window.tommyTableData = [
+        { account_id: 53, name: "Tommy Messinger", account_balance: 2593.32, account_type: 'Auto', fees_charged: 223.11, delinquent: 0 },
+        { account_id: 311, name: "Vicky McCoy", account_balance: 31493.29, account_type: 'Home', fees_charged: 5533.31, delinquent: 1 },
+        { account_id: 984, name: "John Ackman", account_balance: 2398777.32, account_type: 'Home', fees_charged: 29882.32, delinquent: 0 },
+        { account_id: 423, name: "Hannah Roberts", account_balance: 512.96, account_type: 'Auto', fees_charged: 5.8, delinquent: 0 },
+        { account_id: 19, name: "Ann Dun", account_balance: 0.00, account_type: 'Home', fees_charged: 2663.83, delinquent: 0 },
+        { account_id: 442, name: "Craig Miles", account_balance: 40.91, account_type: 'Personal', fees_charged: 187.3, delinquent: 0 },
+        { account_id: 64, name: "Jeff Auger", account_balance: 311.91, account_type: 'Auto', fees_charged: 42.38, delinquent: 0 },
+    ];
+</script>
+```
 
 ## About the data you supply
 
