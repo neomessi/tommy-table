@@ -48,7 +48,7 @@
 
 							</td>
 						</tr>
-						<tr v-for="(m,i) in $data.searchCands" :key="i" v-if="i <= $data.shownNum">
+						<tr v-for="(m,i) in $data.searchCands" :key="i" v-if="i < $data.shownNum">
 							<td :key=j v-for="(k,j) in Object.keys(m)" v-if="j > 0">
 								<span v-if="j === 1">
 									<span v-if="parseInt(m[Object.keys($data.actualCands[0])[0]]) > 0">
@@ -119,7 +119,7 @@
         created: function() {
             this.actualCands = [...(eval(this.tabledatavar) || [])];
 			this.searchCands = [...this.actualCands];
-			this.useDataTypes = [...this.useDataTypes, ...Array(Object.keys(this.actualCands[0]).length-this.useDataTypes.length).fill('string')];			
+			this.useDataTypes = [...this.useDataTypes, ...Array(this.getAllKeys().length-this.useDataTypes.length).fill('string')];
         },
 
 		mounted: function() {
@@ -284,10 +284,10 @@
 				this.$refs.searchFields.reset();
 			},
 			initSearchFields: function() {
-				this.searchFields = Array(Object.keys(this.actualCands[0]).length).fill('');
+				this.searchFields = Array(this.getAllKeys().length).fill('');
 			},
 			initSearchMethods: function() {
-				this.searchMethods = Array(Object.keys(this.actualCands[0]).length).fill(() => true);
+				this.searchMethods = Array(this.getAllKeys().length).fill(() => true);
 			},
 			handleDefaultSearches: function() {
 				const _vue = this;
@@ -338,6 +338,9 @@
 					return h;
 				}
 				throw (`HTML enitity '${k}' not found`);
+			},
+			getAllKeys: function() {
+				return this.actualCands[0] && Object.keys(this.actualCands[0]) || {};
 			},
 
 			/* misc
