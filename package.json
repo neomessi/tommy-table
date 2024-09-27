@@ -1,6 +1,6 @@
 {
   "name": "tommy-table",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A full featured table component written in Vue that suports multi-column searching, sorting, and more",
   "private": false,
   "keywords": [
@@ -15,7 +15,6 @@
     "url": "https://github.com/neomessi/tommy-table"
   },
   "peerDependencies": {
-    "vue": "^3.0.0",
-    "vue-template-compiler": "^2.0.0"
+    "vue": "^3.0.0"
   }
 }
