@@ -192,12 +192,13 @@
 					
 					if ( arr.length == 1) {
 						searchCands.sort(function(a, b){
-							var doNumericSort = !isNaN(a[key]) && !isNaN(b[key]);
+							const doNumericSort = !isNaN(a[key]) && !isNaN(b[key]);
+
 							if ( useSortSeqCycle == 0 ) {
 								//0=asc sort									
 								if (doNumericSort) {
 									return a[key] - b[key]
-								}									
+								}
 								return a[key] == b[key] ? 0 : a[key] < b[key] ? -1 : 1;
 							}else {
 								//1=desc sort
@@ -215,10 +216,20 @@
 						var lastparentval = null;
 						for ( var i=0; i<=searchCands.length; i++ ) {							
 							if ( i==searchCands.length || searchCands[i][parentsortkey] != lastparentval ) {
-								searchcandstmp.sort(function(a, b){									
-									if ( useSortSeqCycle == 0 ) { //0=asc sort
+								searchcandstmp.sort(function(a, b){
+									const doNumericSort = !isNaN(a[key]) && !isNaN(b[key]);
+
+									if ( useSortSeqCycle == 0 ) {
+										//0=asc sort
+										if (doNumericSort) {
+											return a[key] - b[key]
+										}
 										return a[key] == b[key] ? 0 : a[key] < b[key] ? -1 : 1;
-									}else { //1=desc sort
+									}else {
+										//1=desc sort
+										if (doNumericSort) {
+											return b[key] - a[key]
+										}
 										return a[key] == b[key] ? 0 : a[key] > b[key] ? -1 : 1;
 									}									
 								});								
